@@ -10,7 +10,12 @@ interface HeaderProps {
   onSearchChange: (query: string) => void;
 }
 
-export function Header({ cartItemCount, onCartClick, searchQuery, onSearchChange }: HeaderProps) {
+export function Header({
+  cartItemCount,
+  onCartClick,
+  searchQuery,
+  onSearchChange,
+}: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 lg:px-8">
@@ -30,6 +35,7 @@ export function Header({ cartItemCount, onCartClick, searchQuery, onSearchChange
           <div className="relative w-full">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
+              aria-label="Search products"
               placeholder="Search solar equipment..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
@@ -76,6 +82,7 @@ export function Header({ cartItemCount, onCartClick, searchQuery, onSearchChange
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
+              aria-label="Search products"
               placeholder="Search solar equipment..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}

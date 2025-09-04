@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: rivy_store_db
+    environment:
+      POSTGRES_DB: rivy_store
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rivy_store_backend
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DB_PORT: 5432
+      DB_HOST: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: rivy_store
+      JWT_SECRET: fd1e4a64b9b4436e9e3b0bd5b4a7f2f2c2f5c9c8f0a7d1b3c6e9a4b2c7d9e1f3
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - /app/node_modules
+    # Using default CMD from Dockerfile (npm start)
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rivy_store_frontend
+    environment:
+      VITE_API_URL: http://localhost:4000
+    ports:
+      - "3000:8080"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
