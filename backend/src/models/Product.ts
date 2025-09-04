@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import type { Optional } from "sequelize";
-import { sequelize } from "../../config/database.js";
+import { sequelize } from "../config/database.js";
 
 // Interface for Product attributes
 export interface ProductAttributes {
@@ -101,4 +101,3 @@ Product.init(
 );
 
 export default Product;
-

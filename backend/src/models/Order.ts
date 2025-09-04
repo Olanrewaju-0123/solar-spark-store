@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import type { Optional } from "sequelize";
-import { sequelize } from "../../config/database.js";
+import { sequelize } from "../config/database.js";
 
 // Interface for Order attributes
 export interface OrderAttributes {
@@ -54,7 +54,12 @@ export class Order
   public subtotal!: number;
   public tax!: number;
   public shipping!: number;
-  public status!: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
+  public status!:
+    | "pending"
+    | "confirmed"
+    | "shipped"
+    | "delivered"
+    | "cancelled";
   public paymentMethod!: "credit_card" | "installment_loan" | "bank_transfer";
   public installmentMonths?: number;
   public trackingNumber?: string;
@@ -94,17 +99,19 @@ Order.init(
       allowNull: false,
       validate: {
         isValidAddress(value: any) {
-          if (!value || typeof value !== 'object') {
-            throw new Error('Shipping address must be an object');
+          if (!value || typeof value !== "object") {
+            throw new Error("Shipping address must be an object");
           }
-          const required = ['street', 'city', 'state', 'zipCode', 'country'];
+          const required = ["street", "city", "state", "zipCode", "country"];
           for (const field of required) {
-            if (!value[field] || typeof value[field] !== 'string') {
-              throw new Error(`Shipping address ${field} is required and must be a string`);
+            if (!value[field] || typeof value[field] !== "string") {
+              throw new Error(
+                `Shipping address ${field} is required and must be a string`
+              );
             }
           }
-        }
-      }
+        },
+      },
     },
     total: {
       type: DataTypes.DECIMAL(10, 2),
@@ -135,7 +142,13 @@ Order.init(
       },
     },
     status: {
-      type: DataTypes.ENUM("pending", "confirmed", "shipped", "delivered", "cancelled"),
+      type: DataTypes.ENUM(
+        "pending",
+        "confirmed",
+        "shipped",
+        "delivered",
+        "cancelled"
+      ),
       allowNull: false,
       defaultValue: "pending",
     },
@@ -179,4 +192,3 @@ Order.init(
 );
 
 export default Order;
-

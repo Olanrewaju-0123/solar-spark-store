@@ -1,4 +1,4 @@
-import { sequelize } from "../../config/database.js";
+import { sequelize } from "../config/database.js";
 import { Product } from "../models/Product.js";
 import { Order } from "../models/Order.js";
 import { OrderItem } from "../models/OrderItem.js";

@@ -1,15 +1,12 @@
 import type { Request, Response } from "express";
 import { z } from "zod";
 import { Op } from "sequelize";
-import { sequelize } from "../../config/database.js";
+import { sequelize } from "../config/database.js";
 import { Order } from "../models/Order.js";
 import { OrderItem } from "../models/OrderItem.js";
 import { Product } from "../models/Product.js";
-import {
-  updateOrderSchema,
-  paginationSchema,
-} from "../../config/validation.js";
-import { createLogger } from "../../config/logger.js";
+import { updateOrderSchema, paginationSchema } from "../config/validation.js";
+import { createLogger } from "../config/logger.js";
 
 const logger = createLogger("OrdersController");
 

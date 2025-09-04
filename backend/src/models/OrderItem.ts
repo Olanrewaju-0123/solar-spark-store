@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import type { Optional } from "sequelize";
-import { sequelize } from "../../config/database.js";
+import { sequelize } from "../config/database.js";
 
 // Interface for OrderItem attributes
 export interface OrderItemAttributes {
@@ -84,4 +84,3 @@ OrderItem.init(
 );
 
 export default OrderItem;
-

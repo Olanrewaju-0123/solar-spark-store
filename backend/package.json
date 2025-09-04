@@ -7,10 +7,10 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/server.ts",
-    "start": "node dist/src/server.js",
+    "start": "node dist/server.js",
     "test": "cross-env NODE_ENV=test jest --runInBand",
     "db:seed": "tsx src/db/seeder.ts",
-    "db:seed:prod": "node dist/src/db/seeder.js",
+    "db:seed:prod": "node dist/db/seeder.js",
     "db:clear": "tsx -e \"import('./src/db/seeder.js').then(m => m.clearDatabase())\"",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
