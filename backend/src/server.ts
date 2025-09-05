@@ -38,7 +38,10 @@ const swaggerSpec = swaggerJsdoc({
       description: "API for solar equipment store with installment financing",
     },
   },
-  apis: ["./src/routes/*.ts"],
+  apis:
+    process.env["NODE_ENV"] === "production"
+      ? ["./dist/routes/*.js"]
+      : ["./src/routes/*.ts"],
 });
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
