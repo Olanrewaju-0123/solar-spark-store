@@ -20,3 +20,5 @@ COPY --from=build /app/src ./src
 
 EXPOSE 4000
 CMD ["node", "dist/server.js"]
+
+RUN npm run db:seed:prod
