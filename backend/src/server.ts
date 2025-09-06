@@ -11,6 +11,9 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import productsRouter from "./routes/products.js";
 import ordersRouter from "./routes/orders.js";
+import authRouter from "./routes/auth.js";
+import discountCodesRouter from "./routes/discountCodes.js";
+import inventoryRouter from "./routes/inventory.js";
 import { errorHandler } from "./utils/error.js";
 import { sequelize } from "./db/index.js";
 import { seedDatabase, clearDatabase } from "./db/seeder.js";
@@ -31,8 +34,11 @@ app.get("/", (req, res) => {
     message: "Solar Spark Store API",
     version: "1.0.0",
     endpoints: {
+      auth: "/api/auth",
       products: "/api/products",
       orders: "/api/orders",
+      discountCodes: "/api/discount-codes",
+      inventory: "/api/inventory",
       documentation: "/api/docs",
       seed: "POST /api/seed",
       clear: "POST /api/clear"
@@ -62,8 +68,11 @@ app.post("/api/clear", async (req, res) => {
 });
 
 // API Routes
+app.use("/api/auth", authRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/discount-codes", discountCodesRouter);
+app.use("/api/inventory", inventoryRouter);
 
 // Swagger Documentation
 const swaggerSpec = swaggerJsdoc({

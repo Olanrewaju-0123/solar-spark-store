@@ -2,6 +2,9 @@ import { sequelize } from "../config/database.js";
 import { Product } from "../models/Product.js";
 import { Order } from "../models/Order.js";
 import { OrderItem } from "../models/OrderItem.js";
+import { User } from "../models/User.js";
+import { DiscountCode } from "../models/DiscountCode.js";
+import { InventoryReservation } from "../models/InventoryReservation.js";
 
 // Define associations
 Product.hasMany(OrderItem, { foreignKey: "productId", as: "orderItems" });
@@ -11,7 +14,7 @@ Order.hasMany(OrderItem, { foreignKey: "orderId", as: "orderItems" });
 OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" });
 
 // Export models
-export { Product, Order, OrderItem };
+export { Product, Order, OrderItem, User, DiscountCode, InventoryReservation };
 export { sequelize };
 
 // Test the connection

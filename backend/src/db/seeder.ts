@@ -2,6 +2,9 @@ import { sequelize } from "./index.js";
 import { Product } from "../models/Product.js";
 import { Order } from "../models/Order.js";
 import { OrderItem } from "../models/OrderItem.js";
+import { User } from "../models/User.js";
+import { DiscountCode } from "../models/DiscountCode.js";
+import bcrypt from "bcrypt";
 
 const sampleProducts = [
   {
@@ -84,6 +87,24 @@ export async function seedDatabase() {
     await sequelize.sync({ force: true });
     console.log("Database synced successfully");
 
+    // Create admin user
+    const adminPassword = await bcrypt.hash("admin123", 10);
+    const adminUser = await User.create({
+      email: "admin@solarspark.com",
+      password: adminPassword,
+      role: "admin",
+    });
+    console.log("Admin user created:", adminUser.email);
+
+    // Create sample customer
+    const customerPassword = await bcrypt.hash("customer123", 10);
+    const customerUser = await User.create({
+      email: "customer@example.com",
+      password: customerPassword,
+      role: "customer",
+    });
+    console.log("Sample customer created:", customerUser.email);
+
     // Seed products
     const createdProducts = await Product.bulkCreate(sampleProducts);
     console.log(`Created ${createdProducts.length} products`);
@@ -118,6 +139,49 @@ export async function seedDatabase() {
     }
 
     console.log("Sample order created successfully");
+
+    // Create sample discount codes
+    const sampleDiscountCodes = [
+      {
+        code: "WELCOME10",
+        description: "Welcome discount - 10% off your first order",
+        type: "percentage" as const,
+        value: 10,
+        minOrderAmount: 100,
+        maxDiscountAmount: 50,
+        usageLimit: 100,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+      },
+      {
+        code: "SAVE50",
+        description: "Save $50 on orders over $500",
+        type: "fixed" as const,
+        value: 50,
+        minOrderAmount: 500,
+        usageLimit: 50,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days
+      },
+      {
+        code: "SOLAR20",
+        description: "20% off solar panels",
+        type: "percentage" as const,
+        value: 20,
+        maxDiscountAmount: 200,
+        usageLimit: 25,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days
+      },
+    ];
+
+    const createdDiscountCodes = await DiscountCode.bulkCreate(sampleDiscountCodes.map(code => ({
+      ...code,
+      isActive: true,
+      usedCount: 0,
+    })));
+    console.log(`Created ${createdDiscountCodes.length} discount codes`);
+
     console.log("Database seeding completed!");
   } catch (error) {
     console.error("Error seeding database:", error);
