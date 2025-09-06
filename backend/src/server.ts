@@ -13,6 +13,7 @@ import productsRouter from "./routes/products.js";
 import ordersRouter from "./routes/orders.js";
 import { errorHandler } from "./utils/error.js";
 import { sequelize } from "./db/index.js";
+import { seedDatabase, clearDatabase } from "./db/seeder.js";
 
 const app = express();
 const logger = pino({ transport: { target: "pino-pretty" } });
@@ -32,9 +33,32 @@ app.get("/", (req, res) => {
     endpoints: {
       products: "/api/products",
       orders: "/api/orders",
-      documentation: "/api/docs"
+      documentation: "/api/docs",
+      seed: "POST /api/seed",
+      clear: "POST /api/clear"
     }
   });
+});
+
+// Database seeding endpoints (for development/testing)
+app.post("/api/seed", async (req, res) => {
+  try {
+    await seedDatabase();
+    res.json({ message: "Database seeded successfully!" });
+  } catch (error) {
+    logger.error(error, "Failed to seed database");
+    res.status(500).json({ error: "Failed to seed database" });
+  }
+});
+
+app.post("/api/clear", async (req, res) => {
+  try {
+    await clearDatabase();
+    res.json({ message: "Database cleared successfully!" });
+  } catch (error) {
+    logger.error(error, "Failed to clear database");
+    res.status(500).json({ error: "Failed to clear database" });
+  }
 });
 
 // API Routes
