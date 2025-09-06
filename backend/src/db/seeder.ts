@@ -47,7 +47,7 @@ const sampleProducts = [
     price: 149.99,
     stock: 40,
     category: "Mounting & Hardware",
-    imageUrl: "https://via.placeholder.com/400x300/4F46E5/FFFFFF?text=Mounting+Kit",
+    imageUrl: "https://solar-spark-store.vercel.app/solar-panel-400w.jpg",
   },
   {
     name: "Solar Cable 10AWG 100ft",
@@ -56,7 +56,7 @@ const sampleProducts = [
     price: 79.99,
     stock: 60,
     category: "Cables & Connectors",
-    imageUrl: "https://via.placeholder.com/400x300/059669/FFFFFF?text=Solar+Cable",
+    imageUrl: "https://solar-spark-store.vercel.app/mppt-controller.jpg",
   },
   {
     name: "Solar Water Pump 12V",
@@ -65,7 +65,7 @@ const sampleProducts = [
     price: 45.99,
     stock: 35,
     category: "Water Pumps",
-    imageUrl: "https://via.placeholder.com/400x300/DC2626/FFFFFF?text=Water+Pump",
+    imageUrl: "https://solar-spark-store.vercel.app/lithium-battery-100ah.jpg",
   },
   {
     name: "Solar LED Street Light",
@@ -74,7 +74,7 @@ const sampleProducts = [
     price: 199.99,
     stock: 15,
     category: "Lighting",
-    imageUrl: "https://via.placeholder.com/400x300/F59E0B/FFFFFF?text=Street+Light",
+    imageUrl: "https://solar-spark-store.vercel.app/solar-inverter-5kw.jpg",
   },
 ];
 
