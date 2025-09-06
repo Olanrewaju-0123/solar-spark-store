@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const API_BASE =
-  (import.meta as any)?.env?.VITE_API_URL || "http://localhost:3001";
+  (import.meta as any)?.env?.VITE_API_URL || "https://solar-spark-store-4.onrender.com";
 
 const OrderConfirmation = () => {
   const { id } = useParams();

@@ -28,7 +28,7 @@ import { toast } from "@/hooks/use-toast";
 
 const ITEMS_PER_PAGE = 9;
 const API_BASE =
-  (import.meta as any)?.env?.VITE_API_URL || "http://localhost:3001";
+  (import.meta as any)?.env?.VITE_API_URL || "https://solar-spark-store-4.onrender.com";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");

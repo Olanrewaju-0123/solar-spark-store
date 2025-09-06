@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/ui/header";
 
 const API_BASE =
-  (import.meta as any)?.env?.VITE_API_URL || "http://localhost:3001";
+  (import.meta as any)?.env?.VITE_API_URL || "https://solar-spark-store-4.onrender.com";
 
 type ProductResponse = {
   id: number;
