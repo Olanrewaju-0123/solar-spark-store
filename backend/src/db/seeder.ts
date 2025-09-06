@@ -11,7 +11,7 @@ const sampleProducts = [
     price: 299.99,
     stock: 50,
     category: "Solar Panels",
-    imageUrl: "/assets/solar-panel-400w.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/src/assets/solar-panel-400w.jpg",
   },
   {
     name: "MPPT Solar Charge Controller 60A",
@@ -20,7 +20,7 @@ const sampleProducts = [
     price: 89.99,
     stock: 30,
     category: "Charge Controllers",
-    imageUrl: "/assets/mppt-controller.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/src/assets/mppt-controller.jpg",
   },
   {
     name: "Solar Inverter 5kW Pure Sine Wave",
@@ -29,7 +29,7 @@ const sampleProducts = [
     price: 899.99,
     stock: 20,
     category: "Inverters",
-    imageUrl: "/assets/solar-inverter-5kw.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/src/assets/solar-inverter-5kw.jpg",
   },
   {
     name: "Lithium Battery 100Ah 12V",
@@ -38,7 +38,7 @@ const sampleProducts = [
     price: 599.99,
     stock: 25,
     category: "Batteries",
-    imageUrl: "/assets/lithium-battery-100ah.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/src/assets/lithium-battery-100ah.jpg",
   },
   {
     name: "Solar Panel Mounting Kit",
@@ -47,7 +47,7 @@ const sampleProducts = [
     price: 149.99,
     stock: 40,
     category: "Mounting & Hardware",
-    imageUrl: "/assets/mounting-kit.jpg",
+    imageUrl: "https://via.placeholder.com/400x300/4F46E5/FFFFFF?text=Mounting+Kit",
   },
   {
     name: "Solar Cable 10AWG 100ft",
@@ -56,7 +56,7 @@ const sampleProducts = [
     price: 79.99,
     stock: 60,
     category: "Cables & Connectors",
-    imageUrl: "/assets/solar-cable.jpg",
+    imageUrl: "https://via.placeholder.com/400x300/059669/FFFFFF?text=Solar+Cable",
   },
   {
     name: "Solar Water Pump 12V",
@@ -65,7 +65,7 @@ const sampleProducts = [
     price: 45.99,
     stock: 35,
     category: "Water Pumps",
-    imageUrl: "/assets/water-pump.jpg",
+    imageUrl: "https://via.placeholder.com/400x300/DC2626/FFFFFF?text=Water+Pump",
   },
   {
     name: "Solar LED Street Light",
@@ -74,7 +74,7 @@ const sampleProducts = [
     price: 199.99,
     stock: 15,
     category: "Lighting",
-    imageUrl: "/assets/street-light.jpg",
+    imageUrl: "https://via.placeholder.com/400x300/F59E0B/FFFFFF?text=Street+Light",
   },
 ];
 
