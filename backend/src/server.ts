@@ -14,6 +14,7 @@ import ordersRouter from "./routes/orders.js";
 import authRouter from "./routes/auth.js";
 import discountCodesRouter from "./routes/discountCodes.js";
 import inventoryRouter from "./routes/inventory.js";
+import analyticsRouter from "./routes/analytics.js";
 import { errorHandler } from "./utils/error.js";
 import { sequelize } from "./db/index.js";
 import { seedDatabase, clearDatabase } from "./db/seeder.js";
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
       orders: "/api/orders",
       discountCodes: "/api/discount-codes",
       inventory: "/api/inventory",
+      analytics: "/api/analytics",
       documentation: "/api/docs",
       seed: "POST /api/seed",
       clear: "POST /api/clear"
@@ -73,6 +75,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/discount-codes", discountCodesRouter);
 app.use("/api/inventory", inventoryRouter);
+app.use("/api/analytics", analyticsRouter);
 
 // Swagger Documentation
 const swaggerSpec = swaggerJsdoc({
