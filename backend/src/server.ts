@@ -24,6 +24,19 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(rateLimit({ windowMs: 60 * 1000, max: 100 }));
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "Solar Spark Store API",
+    version: "1.0.0",
+    endpoints: {
+      products: "/api/products",
+      orders: "/api/orders",
+      documentation: "/api/docs"
+    }
+  });
+});
+
 // API Routes
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
