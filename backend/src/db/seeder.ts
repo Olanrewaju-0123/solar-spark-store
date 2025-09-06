@@ -11,7 +11,7 @@ const sampleProducts = [
     price: 299.99,
     stock: 50,
     category: "Solar Panels",
-    imageUrl: "https://solar-spark-store.vercel.app/src/assets/solar-panel-400w.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/solar-panel-400w.jpg",
   },
   {
     name: "MPPT Solar Charge Controller 60A",
@@ -20,7 +20,7 @@ const sampleProducts = [
     price: 89.99,
     stock: 30,
     category: "Charge Controllers",
-    imageUrl: "https://solar-spark-store.vercel.app/src/assets/mppt-controller.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/mppt-controller.jpg",
   },
   {
     name: "Solar Inverter 5kW Pure Sine Wave",
@@ -29,7 +29,7 @@ const sampleProducts = [
     price: 899.99,
     stock: 20,
     category: "Inverters",
-    imageUrl: "https://solar-spark-store.vercel.app/src/assets/solar-inverter-5kw.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/solar-inverter-5kw.jpg",
   },
   {
     name: "Lithium Battery 100Ah 12V",
@@ -38,7 +38,7 @@ const sampleProducts = [
     price: 599.99,
     stock: 25,
     category: "Batteries",
-    imageUrl: "https://solar-spark-store.vercel.app/src/assets/lithium-battery-100ah.jpg",
+    imageUrl: "https://solar-spark-store.vercel.app/lithium-battery-100ah.jpg",
   },
   {
     name: "Solar Panel Mounting Kit",
