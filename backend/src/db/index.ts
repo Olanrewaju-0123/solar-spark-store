@@ -15,7 +15,15 @@ Order.hasMany(OrderItem, { foreignKey: "orderId", as: "orderItems" });
 OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" });
 
 // Export models
-export { Product, Order, OrderItem, User, DiscountCode, InventoryReservation, AnalyticsEvent };
+export {
+  Product,
+  Order,
+  OrderItem,
+  User,
+  DiscountCode,
+  InventoryReservation,
+  AnalyticsEvent,
+};
 export { sequelize };
 
 // Test the connection

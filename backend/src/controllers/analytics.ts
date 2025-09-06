@@ -1,20 +1,15 @@
 import type { Request, Response } from "express";
-import { z } from "zod";
 import { Op } from "sequelize";
 import { sequelize } from "../config/database.js";
 import { AnalyticsEvent } from "../models/AnalyticsEvent.js";
 import { createLogger } from "../config/logger.js";
+import { 
+  trackEventSchema, 
+  analyticsSummaryQuerySchema,
+  analyticsEventsQuerySchema 
+} from "../validations/analytics.js";
 
 const logger = createLogger("AnalyticsController");
-
-const trackEventSchema = z.object({
-  eventType: z.enum(["page_view", "add_to_cart", "remove_from_cart", "checkout_start", "checkout_complete", "product_view"]),
-  userId: z.number().int().positive().optional(),
-  sessionId: z.string().optional(),
-  productId: z.number().int().positive().optional(),
-  orderId: z.number().int().positive().optional(),
-  metadata: z.any().optional(),
-});
 
 /**
  * Track an analytics event
@@ -61,7 +56,15 @@ export async function trackEvent(req: Request, res: Response) {
  */
 export async function getAnalyticsSummary(req: Request, res: Response) {
   try {
-    const { days = 30 } = req.query;
+    const parsed = analyticsSummaryQuerySchema.safeParse(req.query);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Validation failed",
+        details: parsed.error.errors,
+      });
+    }
+
+    const { days } = parsed.data;
     const startDate = new Date(Date.now() - Number(days) * 24 * 60 * 60 * 1000);
 
     // Get event counts by type
@@ -140,7 +143,15 @@ export async function getAnalyticsSummary(req: Request, res: Response) {
  */
 export async function getAnalyticsEvents(req: Request, res: Response) {
   try {
-    const { page = 1, pageSize = 50, eventType, days = 7 } = req.query;
+    const parsed = analyticsEventsQuerySchema.safeParse(req.query);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Validation failed",
+        details: parsed.error.errors,
+      });
+    }
+
+    const { page, pageSize, eventType, days } = parsed.data;
     const offset = (Number(page) - 1) * Number(pageSize);
     const startDate = new Date(Date.now() - Number(days) * 24 * 60 * 60 * 1000);
 

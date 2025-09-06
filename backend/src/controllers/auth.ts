@@ -1,22 +1,11 @@
 import type { Request, Response } from "express";
-import { z } from "zod";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/User.js";
 import { createLogger } from "../config/logger.js";
+import { loginSchema, registerSchema } from "../validations/auth.js";
 
 const logger = createLogger("AuthController");
-
-const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-
-const registerSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["admin", "customer"]).optional().default("customer"),
-});
 
 /**
  * Login user
@@ -106,7 +95,7 @@ export async function register(req: Request, res: Response) {
     const user = await User.create({
       email,
       password: hashedPassword,
-      role,
+      role: role || "customer",
     });
 
     logger.info(`New user registered: ${email} (${role})`);

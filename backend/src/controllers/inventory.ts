@@ -1,23 +1,16 @@
 import type { Request, Response } from "express";
-import { z } from "zod";
 import { Op } from "sequelize";
 import { sequelize } from "../config/database.js";
 import { Product } from "../models/Product.js";
 import { InventoryReservation } from "../models/InventoryReservation.js";
 import { createLogger } from "../config/logger.js";
+import { 
+  reserveInventorySchema,
+  confirmReservationSchema,
+  cancelReservationSchema 
+} from "../validations/inventory.js";
 
 const logger = createLogger("InventoryController");
-
-const reserveInventorySchema = z.object({
-  items: z.array(
-    z.object({
-      productId: z.number().int().positive(),
-      quantity: z.number().int().positive(),
-    })
-  ).min(1),
-  sessionId: z.string().optional(),
-  reservationMinutes: z.number().int().positive().default(15),
-});
 
 /**
  * Reserve inventory for checkout
@@ -110,7 +103,15 @@ export async function confirmReservation(req: Request, res: Response) {
   const transaction = await sequelize.transaction();
 
   try {
-    const { reservationIds, orderId } = req.body;
+    const parsed = confirmReservationSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Validation failed",
+        details: parsed.error.errors,
+      });
+    }
+
+    const { reservationIds, orderId } = parsed.data;
 
     if (!Array.isArray(reservationIds) || reservationIds.length === 0) {
       return res.status(400).json({ error: "Reservation IDs required" });
@@ -164,7 +165,15 @@ export async function confirmReservation(req: Request, res: Response) {
  */
 export async function cancelReservation(req: Request, res: Response) {
   try {
-    const { reservationIds } = req.body;
+    const parsed = cancelReservationSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Validation failed",
+        details: parsed.error.errors,
+      });
+    }
+
+    const { reservationIds } = parsed.data;
 
     if (!Array.isArray(reservationIds) || reservationIds.length === 0) {
       return res.status(400).json({ error: "Reservation IDs required" });

@@ -1,26 +1,13 @@
 import type { Request, Response } from "express";
-import { z } from "zod";
 import { DiscountCode } from "../models/DiscountCode.js";
 import { createLogger } from "../config/logger.js";
+import { 
+  createDiscountCodeSchema, 
+  validateDiscountCodeSchema,
+  discountCodeQuerySchema 
+} from "../validations/discountCodes.js";
 
 const logger = createLogger("DiscountCodeController");
-
-const createDiscountCodeSchema = z.object({
-  code: z.string().min(3).max(20),
-  description: z.string().min(1),
-  type: z.enum(["percentage", "fixed"]),
-  value: z.number().positive(),
-  minOrderAmount: z.number().positive().optional(),
-  maxDiscountAmount: z.number().positive().optional(),
-  usageLimit: z.number().int().positive().optional(),
-  validFrom: z.string().datetime().optional(),
-  validUntil: z.string().datetime(),
-});
-
-const validateDiscountCodeSchema = z.object({
-  code: z.string().min(1),
-  orderAmount: z.number().positive(),
-});
 
 /**
  * Create a new discount code (Admin only)
@@ -45,8 +32,12 @@ export async function createDiscountCode(req: Request, res: Response) {
       description: data.description,
       type: data.type,
       value: data.value,
-      ...(data.minOrderAmount !== undefined && { minOrderAmount: data.minOrderAmount }),
-      ...(data.maxDiscountAmount !== undefined && { maxDiscountAmount: data.maxDiscountAmount }),
+      ...(data.minOrderAmount !== undefined && {
+        minOrderAmount: data.minOrderAmount,
+      }),
+      ...(data.maxDiscountAmount !== undefined && {
+        maxDiscountAmount: data.maxDiscountAmount,
+      }),
       ...(data.usageLimit !== undefined && { usageLimit: data.usageLimit }),
       validFrom,
       validUntil,
